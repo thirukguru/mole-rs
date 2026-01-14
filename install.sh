@@ -51,12 +51,24 @@ detect_platform() {
     echo "${os}-${arch}"
 }
 
-# Get latest release version from GitHub
+# Get latest release version from GitHub (including pre-releases)
 get_latest_version() {
-    curl -fsSL "https://api.github.com/repos/${REPO}/releases/latest" 2>/dev/null | \
+    # First try the /releases/latest endpoint (stable releases only)
+    local version
+    version=$(curl -fsSL "https://api.github.com/repos/${REPO}/releases/latest" 2>/dev/null | \
         grep '"tag_name"' | \
         head -1 | \
-        sed -E 's/.*"v?([^"]+)".*/\1/'
+        sed -E 's/.*"v?([^"]+)".*/\1/')
+    
+    # If no stable release, check all releases (includes pre-releases)
+    if [[ -z "$version" ]]; then
+        version=$(curl -fsSL "https://api.github.com/repos/${REPO}/releases" 2>/dev/null | \
+            grep '"tag_name"' | \
+            head -1 | \
+            sed -E 's/.*"v?([^"]+)".*/\1/')
+    fi
+    
+    echo "$version"
 }
 
 # Download and install binary
