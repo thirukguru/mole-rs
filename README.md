@@ -14,11 +14,25 @@ A Rust-based system cleanup tool inspired by [tw93/Mole](https://github.com/tw93
 
 ## Installation
 
+### Quick Install (Recommended)
 ```bash
-# Build from source
+curl -fsSL https://raw.githubusercontent.com/thirukguru/mole-rs/main/install.sh | bash
+```
+
+### Install Specific Version
+```bash
+curl -fsSL https://raw.githubusercontent.com/thirukguru/mole-rs/main/install.sh | bash -s -- -v 0.1.0
+```
+
+### Build from Source
+```bash
+# Clone and build
+git clone https://github.com/thirukguru/mole-rs.git
+cd mole-rs
 cargo build --release
 
-# The binary will be at ./target/release/mo
+# Install to ~/.local/bin
+cp target/release/mo ~/.local/bin/
 ```
 
 ## Usage
@@ -33,12 +47,16 @@ Launches the interactive TUI menu.
 ```bash
 mo clean              # Deep system cleanup
 mo clean --dry-run    # Preview without deleting
+mo uninstall --list   # List installed apps
+mo uninstall <app>    # Uninstall app + leftovers
+mo uninstall <app> --dry-run  # Preview uninstall
 mo analyze            # Analyze home directory
 mo analyze /path      # Analyze specific path
 mo status             # Live system monitor
 mo purge              # Clean dev artifacts
 mo purge --dry-run    # Preview purge
 mo optimize           # System maintenance
+mo optimize --dry-run # Preview optimize
 mo optimize --dry-run # Preview optimize
 ```
 

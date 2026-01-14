@@ -57,6 +57,20 @@ pub enum Command {
         #[arg(long)]
         dry_run: bool,
     },
+
+    /// Remove applications and their leftover files
+    Uninstall {
+        /// Application name to uninstall
+        app_name: Option<String>,
+
+        /// Preview changes without uninstalling
+        #[arg(long)]
+        dry_run: bool,
+
+        /// List installed applications
+        #[arg(long)]
+        list: bool,
+    },
 }
 
 fn default_analyze_path() -> String {

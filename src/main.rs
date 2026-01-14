@@ -34,6 +34,9 @@ fn main() -> Result<()> {
         Some(cli::Command::Optimize { dry_run }) => {
             commands::optimize::run(dry_run)?;
         }
+        Some(cli::Command::Uninstall { app_name, dry_run, list }) => {
+            commands::uninstall::run(app_name, dry_run, list)?;
+        }
         None => {
             // Launch interactive TUI
             tui::run()?;

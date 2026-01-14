@@ -1,1 +1,14 @@
 /target
+
+# Release artifacts (don't commit these)
+*.tar.gz
+mole-rs-*/
+
+# Editor/IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# OS files
+.DS_Store

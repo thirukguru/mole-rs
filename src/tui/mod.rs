@@ -122,6 +122,13 @@ fn run_app<B: Backend>(terminal: &mut Terminal<B>, app: &mut App) -> Result<()> 
                                 app.state = AppState::Exiting;
                             }
                         }
+                        KeyCode::Char('6') => {
+                            app.selection = 5;
+                            app.select_action();
+                            if app.selected_action.is_some() {
+                                app.state = AppState::Exiting;
+                            }
+                        }
                         _ => {}
                     }
                 }

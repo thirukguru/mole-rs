@@ -38,24 +38,29 @@ impl App {
                     shortcut: '1',
                 },
                 MenuItem {
+                    name: "Uninstall",
+                    description: "Remove apps and leftover files",
+                    shortcut: '2',
+                },
+                MenuItem {
                     name: "Analyze",
                     description: "Explore disk usage visually",
-                    shortcut: '2',
+                    shortcut: '3',
                 },
                 MenuItem {
                     name: "Status",
                     description: "Monitor system health in real-time",
-                    shortcut: '3',
+                    shortcut: '4',
                 },
                 MenuItem {
                     name: "Purge",
                     description: "Clean development project artifacts",
-                    shortcut: '4',
+                    shortcut: '5',
                 },
                 MenuItem {
                     name: "Optimize",
                     description: "Run system maintenance tasks",
-                    shortcut: '5',
+                    shortcut: '6',
                 },
             ],
             selected_action: None,
@@ -71,15 +76,16 @@ impl App {
     pub fn select_action(&mut self) {
         self.selected_action = match self.selection {
             0 => Some(Box::new(|| commands::clean::run(false, false))),
-            1 => Some(Box::new(|| {
+            1 => Some(Box::new(|| commands::uninstall::run(None, false, true))), // List mode
+            2 => Some(Box::new(|| {
                 let home = dirs::home_dir()
                     .map(|p| p.to_string_lossy().to_string())
                     .unwrap_or_else(|| ".".to_string());
                 commands::analyze::run(home)
             })),
-            2 => Some(Box::new(|| commands::status::run())),
-            3 => Some(Box::new(|| commands::purge::run(None, false))),
-            4 => Some(Box::new(|| commands::optimize::run(false))),
+            3 => Some(Box::new(|| commands::status::run())),
+            4 => Some(Box::new(|| commands::purge::run(None, false))),
+            5 => Some(Box::new(|| commands::optimize::run(false))),
             _ => None,
         };
     }
