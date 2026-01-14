@@ -1,0 +1,62 @@
+[package]
+name = "mole-rs"
+version = "0.1.0"
+edition = "2021"
+description = "Deep clean and optimize your Ubuntu system"
+authors = ["Mole-RS Contributors"]
+license = "MIT"
+readme = "README.md"
+repository = "https://github.com/your-username/mole-rs"
+keywords = ["system", "cleanup", "ubuntu", "tui", "disk"]
+categories = ["command-line-utilities", "filesystem"]
+
+[[bin]]
+name = "mo"
+path = "src/main.rs"
+
+[dependencies]
+# TUI
+ratatui = "0.26"
+crossterm = "0.27"
+
+# CLI
+clap = { version = "4.5", features = ["derive"] }
+
+# System info
+sysinfo = "0.30"
+
+# Filesystem
+walkdir = "2.4"
+dirs = "5.0"
+
+# Utilities
+humansize = "2.1"
+chrono = "0.4"
+colored = "2.1"
+
+# Serialization
+serde = { version = "1.0", features = ["derive"] }
+toml = "0.8"
+
+# Error handling
+anyhow = "1.0"
+thiserror = "1.0"
+
+# Logging
+tracing = "0.1"
+tracing-subscriber = "0.3"
+
+# Signal handling
+ctrlc = "3.4"
+libc = "0.2"
+
+[dev-dependencies]
+tempfile = "3.10"
+assert_cmd = "2.0"
+predicates = "3.1"
+
+[profile.release]
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true
